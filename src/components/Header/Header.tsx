@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <div className="container">
         <Link to="/" className={styles.logoWrapper}>
-          <img className={styles.logo} src="../../../public/logo.svg"></img>
+          <img className={styles.logo} src="/logo.svg"></img>
           ToDo List
         </Link>
       </div>
