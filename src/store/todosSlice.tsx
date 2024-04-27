@@ -1,43 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Todo } from "../types";
 
-const initialState: TodosType[] = [];
+const initialState: {
+  todos: Todo[];
+  isLoading: boolean;
+} = {
+  todos: [],
+  isLoading: false,
+};
 
 const TodoSlice = createSlice({
   name: "todo",
-  initialState: { value: initialState },
+  initialState,
   reducers: {
-    addTodo: (state, action: PayloadAction<TodosType>) => {
-      state.value.push(action.payload);
+    setTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.todos = [...action.payload];
     },
-    deleteTodo: (state, action: PayloadAction<number>) => {
-      state.value.map((item) => {
-        if (item.id == action.payload) {
-          item.deleted = !item.deleted;
-        }
-      });
-    },
-    deletePermanentlyTodo: (state, action: PayloadAction<number>) => {
-      state.value = state.value.filter((item) => item.id != action.payload);
-    },
-    completeTodo: (state, action: PayloadAction<number>) => {
-      state.value.map((item) => {
-        if (item.id == action.payload) {
-          item.completed = !item.completed;
-        }
-      });
-    },
-    uncheckTodo: (state) => {
-      state.value = state.value.filter((item) => item.completed == false);
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const {
-  addTodo,
-  deleteTodo,
-  deletePermanentlyTodo,
-  completeTodo,
-  uncheckTodo,
-} = TodoSlice.actions;
+export const { setTodos, setIsLoading } = TodoSlice.actions;
 
 export default TodoSlice.reducer;

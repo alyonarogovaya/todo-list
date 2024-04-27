@@ -1,6 +1,6 @@
 export type Todo = {
-  id: number;
-  todo: string;
-  deleted: boolean;
-  completed: boolean;
+  id: string;
+  title: string;
+  isDeleted: boolean;
+  isCompleted: boolean;
 };

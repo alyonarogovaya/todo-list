@@ -1,29 +1,52 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import addTodo from "../../store/todosSlice";
 import styles from "./TodoForm.module.css";
+import { useUpdateTodosMutation } from "../../services/todosApi";
+import { Todo } from "../../types";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { setTodos, setIsLoading } from "../../store/todosSlice";
 
 const TodoForm: React.FC = () => {
-  const [todo, setTodo] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const todos = useSelector((state: RootState) => state.todos.todos);
   const dispatch = useDispatch();
+  const [createApiTodo] = useUpdateTodosMutation();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!todo) {
+    if (!title) {
       alert("It seems you didn't write what you need to do");
     }
-    dispatch(addTodo(todo));
-    setTodo("");
+
+    const newTodo: Todo = {
+      title,
+      isDeleted: false,
+      isCompleted: true,
+      id: new Date().toISOString(),
+    };
+
+    dispatch(setIsLoading(true));
+
+    const res = await createApiTodo([...todos, newTodo]);
+    if ("data" in res) {
+      dispatch(setTodos(res.data.record.todos));
+      setTitle("");
+    }
+    if ("error" in res) {
+      alert(res.error);
+    }
+
+    dispatch(setIsLoading(false));
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <input
         required
-        value={todo}
+        value={title}
         type="text"
         placeholder="Create a new todo..."
-        onChange={(e) => setTodo(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
       />
     </form>
   );

@@ -3,22 +3,20 @@ import { Todo } from "../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
-const CompletedTodos = () => {
+const AllTodos = () => {
   const todos = useSelector((state: RootState) => state.todos.todos);
 
   return (
     <>
       {todos && (
         <ul>
-          {todos
-            .filter((todo: Todo) => todo.isCompleted)
-            .map((todo: Todo) => (
-              <TodoItem key={todo.id} todo={todo} />
-            ))}
+          {todos.map((todo: Todo) => (
+            <TodoItem key={todo.id} todo={todo} />
+          ))}
         </ul>
       )}
     </>
   );
 };
 
-export default CompletedTodos;
+export default AllTodos;
