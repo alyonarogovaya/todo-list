@@ -8,9 +8,6 @@ const Tabs: React.FC = () => {
       <NavLink to="/" className={styles.tab}>
         All
       </NavLink>
-      <NavLink to="/deleted" className={styles.tab}>
-        Deleted
-      </NavLink>
       <NavLink to="/completed" className={styles.tab}>
         Completed
       </NavLink>

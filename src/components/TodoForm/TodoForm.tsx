@@ -1,18 +1,25 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import addTodo from "../../store/todosSlice";
+import { addTodo } from "../../store/todosSlice";
 import styles from "./TodoForm.module.css";
+import { useAppDispatch } from "../../store/hooks";
 
 const TodoForm: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!todo) {
       alert("It seems you didn't write what you need to do");
     }
-    dispatch(addTodo(todo));
+
+    const newTodo = {
+      title: todo,
+      isCompleted: false,
+      id: new Date().toISOString(),
+    };
+
+    dispatch(addTodo(newTodo));
     setTodo("");
   };
 
@@ -25,6 +32,7 @@ const TodoForm: React.FC = () => {
         placeholder="Create a new todo..."
         onChange={(e) => setTodo(e.target.value)}
       />
+      <button>Add</button>
     </form>
   );
 };

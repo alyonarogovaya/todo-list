@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import AllTodos from "./pages/AllTodos/AllTodos";
-import DeletedTodos from "./pages/DeletedTodos";
+import AllTodos from "./pages/AllTodos";
 import CompletedTodos from "./pages/CompletedTodos";
 
 const router = createBrowserRouter([
@@ -12,10 +11,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AllTodos />,
-      },
-      {
-        path: "/deleted",
-        element: <DeletedTodos />,
       },
       {
         path: "/completed",
