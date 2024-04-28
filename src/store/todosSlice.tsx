@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Todo } from "../types";
 
-const X_MASTER_KEY =
-  "$2a$10$qEiSzVF.BR.GplsyOIy6b.R9Fw4TzBWpW8hISwS2m7Gj/nhYahQ9C";
-const X_ACCESS_KEY =
-  "$2a$10$JnqCe17Dhpwev2dNkLXvJORc2l181J7.QfE9qgsdAiNaFj/Q2U3TO";
-const BIN_ID = "662ad519ad19ca34f85fd1aa";
-
 interface ITodosDispatchArg {
   type?:
     | "todos/addTodo"
@@ -68,13 +62,16 @@ export const fetchTodos = () => {
   return async (dispatch: ITodosDispatchFunc) => {
     dispatch({ type: "todos/error", payload: false });
     dispatch({ type: "todos/loading", payload: true });
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      headers: {
-        "X-Master-Key": `${X_MASTER_KEY}`,
-        "X-Access-Key": `${X_ACCESS_KEY}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://api.jsonbin.io/v3/b/${process.env.BIN_ID}/latest`,
+      {
+        headers: {
+          "X-Master-Key": `${process.env.X_MASTER_KEY}`,
+          "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!res.ok) {
       return dispatch({ type: "todos/error", payload: true });
@@ -90,11 +87,11 @@ export const addTodo = (todo: Todo) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/addTodo", payload: todo });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${X_MASTER_KEY}`,
-        "X-Access-Key": `${X_ACCESS_KEY}`,
+        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
+        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -108,11 +105,11 @@ export const deleteTodo = (id: string) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/deleteTodo", payload: id });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${X_MASTER_KEY}`,
-        "X-Access-Key": `${X_ACCESS_KEY}`,
+        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
+        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -126,11 +123,11 @@ export const changeTodoStatus = (id: string) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/changeTodoStatus", payload: id });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${X_MASTER_KEY}`,
-        "X-Access-Key": `${X_ACCESS_KEY}`,
+        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
+        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

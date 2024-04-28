@@ -11,8 +11,6 @@ const AllTodos = () => {
   const isLoading = useAppSelector((store: RootState) => store.isLoading);
   const error = useAppSelector((store: RootState) => store.error);
 
-  console.log(error);
-
   return (
     <>
       {isLoading && <LoadingSpinner />}
