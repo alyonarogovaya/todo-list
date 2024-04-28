@@ -63,11 +63,11 @@ export const fetchTodos = () => {
     dispatch({ type: "todos/error", payload: false });
     dispatch({ type: "todos/loading", payload: true });
     const res = await fetch(
-      `https://api.jsonbin.io/v3/b/${process.env.BIN_ID}/latest`,
+      `https://api.jsonbin.io/v3/b/${import.meta.env.VITE_BIN_ID}/latest`,
       {
         headers: {
-          "X-Master-Key": `${process.env.X_MASTER_KEY}`,
-          "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
+          "X-Master-Key": `${import.meta.env.VITE_X_MASTER_KEY}`,
+          "X-Access-Key": `${import.meta.env.VITE_X_ACCESS_KEY}`,
           "Content-Type": "application/json",
         },
       }
@@ -87,11 +87,11 @@ export const addTodo = (todo: Todo) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/addTodo", payload: todo });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${import.meta.env.VITE_BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
-        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
+        "X-Master-Key": `${import.meta.env.VITE_X_MASTER_KEY}`,
+        "X-Access-Key": `${import.meta.env.VITE_X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -105,11 +105,11 @@ export const deleteTodo = (id: string) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/deleteTodo", payload: id });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${import.meta.env.VITE_BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
-        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
+        "X-Master-Key": `${import.meta.env.VITE_X_MASTER_KEY}`,
+        "X-Access-Key": `${import.meta.env.VITE_X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -123,11 +123,11 @@ export const changeTodoStatus = (id: string) => {
   return async (dispatch: ITodosDispatchFunc, getState: () => ITodosState) => {
     dispatch({ type: "todos/changeTodoStatus", payload: id });
 
-    await fetch(`https://api.jsonbin.io/v3/b/${process.env.BIN_ID}`, {
+    await fetch(`https://api.jsonbin.io/v3/b/${import.meta.env.VITE_BIN_ID}`, {
       method: "PUT",
       headers: {
-        "X-Master-Key": `${process.env.X_MASTER_KEY}`,
-        "X-Access-Key": `${process.env.X_ACCESS_KEY}`,
+        "X-Master-Key": `${import.meta.env.VITE_X_MASTER_KEY}`,
+        "X-Access-Key": `${import.meta.env.VITE_X_ACCESS_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
